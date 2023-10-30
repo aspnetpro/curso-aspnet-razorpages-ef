@@ -1,0 +1,28 @@
+﻿@model AspNet.Blog.Web.Common.IPagedList
+
+<ul class="pager">
+    @if (Model.HasPreviousPage)
+    {
+    <li class="next"><a href="@CreateUrl(Model.PreviousPage)">newest &rarr;</a></li>
+    }
+    @if (Model.HasNextPage)
+    {
+    <li class="previous"><a href="@CreateUrl(Model.NextPage)">&larr; older</a></li>
+    }
+</ul>
+
+@functions {
+    protected string CreateUrl(int page)
+    {
+        var url = $"{Context.Request.Path}?";
+
+        var routeValues = new RouteValueDictionary();
+        foreach (var qs in Context.Request.HttpContext.Request.Query)
+        {
+            routeValues[qs.Key] = qs.Value;
+        }
+        routeValues["page"] = page;
+
+        return url + String.Join('&', routeValues);
+    }
+}

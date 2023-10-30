@@ -1,0 +1,25 @@
+﻿@page "/contact"
+@model IndexModel
+@{
+    ViewBag.Title = "Contato";
+}
+
+<h2>Contact Me</h2>
+<hr>
+<form id="form-contact" action="" role="form" method="post">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="InputName">Name</label>
+            <input type="text" class="form-control" id="InputName" name="Name" placeholder="Enter your name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="InputEmail">Email address</label>
+            <input type="email" class="form-control" id="InputEmail" name="Email" placeholder="Enter email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputMessage">Message</label>
+        <textarea class="form-control" rows="5" id="inputMessage" name="Message" placeholder="Type your message"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form> 

@@ -1,0 +1,7 @@
+﻿@model AspNet.Blog.Web.Models.ViewModel.PostDetailsViewModel
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a href="@Url.RouteUrl("Admin.Posts.Edit", new { id = Model.Post?.Id })" class="btn btn-sm btn-success"><strong>Edit</strong></a>
+    <a href="@Url.RouteUrl("Admin.Posts.Delete", new { id = Model.Post?.Id })" class="btn btn-sm btn-danger"><strong>Delete</strong></a>
+}

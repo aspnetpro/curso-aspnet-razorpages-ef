@@ -1,0 +1,51 @@
+﻿@page "/{permalink?}"
+@model DetailsModel
+@* @{
+    ViewBag.Title = Model.Post.Title;
+}
+
+<section>
+    <div class="post">
+        <h2><a href="#">@Model.Post.Title</a></h2>
+        <p class="text-muted">
+            Posted on <a href="#">@Model.Post.PublishedOn.ToShortDateString()</a>
+            @if (Model.Post.Category != null)
+            {
+                @:, in <a href="@Url.RouteUrl("Posts.GetByCategory", new { category = Model.Post.Category.Permalink })">@Model.Post.Category.Name</a>
+            }
+        </p>
+        <p>
+            @await Html.PartialAsync("_AdminActions", Model)
+        </p>
+        <div>
+            @Html.Raw(Model.Post.Content)
+        </div>
+        <p>
+            <i class="icon-tags"></i>&nbsp;Tags:
+            @foreach (var tag in Model.GetTags())
+            {
+                <span class="label label-primary">@tag</span>
+            }
+        </p>
+    </div>
+</section>
+
+<section id="comments">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <h2 class="title">@Model.TotalComments Comments</h2>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <button data-target="#modal-comment" data-toggle="modal" class="btn btn-primary pull-right">Add comment</button>
+                </div>
+            </div>
+        </div>
+        <div id="comments-list" class="list-group">
+            @Html.Action("LoadComments", "Posts", new { permalink = Model.Post.Permalink })
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("_CommentModal", Model) *@
