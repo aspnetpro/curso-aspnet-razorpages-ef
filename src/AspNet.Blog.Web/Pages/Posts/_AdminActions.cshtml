@@ -1,0 +1,7 @@
+﻿@model AspNet.Blog.Web.Models.ViewModel.PostDetailsViewModel
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-area="Admin" asp-page="/Posts/AddOrEdit" asp-route-id="@Model.PostId" class="btn btn-sm btn-success"><strong>Edit</strong></a>
+    <a asp-area="Admin" asp-page="/Posts/Delete" asp-route-id="@Model.PostId" class="btn btn-sm btn-danger"><strong>Delete</strong></a>
+}
