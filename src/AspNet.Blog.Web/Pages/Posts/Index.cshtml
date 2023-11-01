@@ -17,7 +17,7 @@
         <div class="post">
             <h2><a asp-area="" asp-page="/Posts/Details" asp-route-permalink="@item.Permalink">@item.Title</a></h2>
             <p class="text-muted">
-                Posted on <a href="#">@item.PublishedOn?.ToShortDateString()</a>
+                Posted on <a href="#">@item.PublishedOn</a>
                 @if (item.Category != null)
                 {
                     @:, in <a asp-area="" asp-page="?category=@item.Category.Permalink">@item.Category.Name</a>
@@ -31,7 +31,7 @@
                     <i class="glyphicon glyphicon-circle-arrow-right"></i>&nbsp;Read more
                 </a>
                 @* <partial name="_AdminActions" model="@new PostDetailsViewModel { Post = item }" /> *@
-                @await Html.PartialAsync("_AdminActions", new PostDetailsViewModel { PostId = item.Id })
+                @await Html.PartialAsync("_AdminActions", new PostDetailsViewModel { PostId = item.PostId })
             </p>
         </div>
     }

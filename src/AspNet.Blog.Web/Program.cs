@@ -39,9 +39,16 @@ builder.Services.Configure<GzipCompressionProviderOptions>(options =>
     options.Level = CompressionLevel.SmallestSize;
 });
 
+// Add Azure Storage
 builder.Services.AddOptions<AzureBlobStorageOptions>()
     .Bind(builder.Configuration.GetSection(AzureBlobStorageOptions.Name));
 builder.Services.AddTransient<IStorage, AzureBlobStorageImpl>();
+
+// Add Fluent Email
+builder.Services
+    .AddFluentEmail("fromemail@test.test")
+    .AddRazorRenderer()
+    .AddSmtpSender("localhost", 25);
 
 var app = builder.Build();
 

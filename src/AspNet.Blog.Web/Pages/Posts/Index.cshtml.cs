@@ -2,6 +2,7 @@ using AspNet.Blog.Models.Entities;
 using AspNet.Blog.Web.Common;
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Models;
+using AspNet.Blog.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace AspNet.Blog.Web.Pages.Posts
             this.blogContext = blogContext;
         }
 
-        public PagedList<Post>? Posts { get; set; }
+        public PagedList<PostListItemModel>? Posts { get; set; }
 
         public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)
         {
@@ -40,6 +41,19 @@ namespace AspNet.Blog.Web.Pages.Posts
 
             this.Posts = posts
                 .OrderByDescending(x => x.PublishedOn)
+                .Select(post => new PostListItemModel
+                {
+                    PostId = post.Id,
+                    Title = post.Title,
+                    Permalink = post.Permalink,
+                    Summary = post.Summary,
+                    PublishedOn = post.PublishedOn.Value.ToShortDateString(),
+                    Category = new PostListItemModel.CategoryViewModel
+                    {
+                        Name = post.Category.Name,
+                        Permalink = post.Category.Permalink
+                    }
+                })
                 .ToPagedList(pageOptions.Page, pageOptions.Size);
 
             return Page();
