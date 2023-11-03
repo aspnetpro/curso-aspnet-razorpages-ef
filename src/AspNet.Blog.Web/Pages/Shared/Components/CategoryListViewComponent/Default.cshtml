@@ -6,7 +6,7 @@
         @foreach (var item in Model)
         {
             <li class="list-group-item">
-                <a asp-area="" asp-route="/Posts/Index" asp-route-category="@item.Permalink">@item.Name (@item.TotalPosts)</a>
+                <a asp-area="" asp-page="/Posts/Index" asp-route-category="@item.Permalink">@item.Name (@item.TotalPosts)</a>
             </li>
         }
     </ul>

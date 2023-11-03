@@ -1,6 +1,6 @@
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
-using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
@@ -8,7 +8,11 @@ using System.IO.Compression;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeAreaFolder("Admin", "/Manage");
+    options.Conventions.AllowAnonymousToFolder("/Auth");
+});
 
 // Add entity framework
 builder.Services.AddDbContext<BlogContext>((optionsAction) =>
@@ -50,6 +54,14 @@ builder.Services
     .AddRazorRenderer()
     .AddSmtpSender("localhost", 25);
 
+// Add authentication
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie((opt) =>
+    {
+        opt.LoginPath = "/admin";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -66,6 +78,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

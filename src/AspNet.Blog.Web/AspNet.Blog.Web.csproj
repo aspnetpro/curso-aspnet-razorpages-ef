@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Pages\Categories\" />
-    <Folder Include="Areas\Admin\Pages\Posts\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Emails\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

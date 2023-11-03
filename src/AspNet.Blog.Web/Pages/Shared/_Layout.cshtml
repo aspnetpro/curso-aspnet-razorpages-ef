@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Michel Banagouro" />
     <meta name="description" content="Blog desenvolvido no curso de ASP.NET MVC" />
-    <title>@ViewBag.Title - ASP.NET Blog</title>
+    <title>@ViewData["Title"] - ASP.NET Blog</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @await RenderSectionAsync("Css", required: false)
