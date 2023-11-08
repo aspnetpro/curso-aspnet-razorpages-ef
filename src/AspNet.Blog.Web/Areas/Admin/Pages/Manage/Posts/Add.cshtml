@@ -3,3 +3,48 @@
 @{
     ViewData["Title"] = "Create New Post";
 }
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">@ViewData["Title"]</h1>
+
+<div class="row-fluid">
+    <form id="post-form" asp-area="Admin" asp-action="/Manage/Posts/Add" method="post" role="form">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" id="inputTitle" name="title" class="form-control input-block-level" maxlength="100" >
+                </div>
+                <div class="form-group">
+                    <textarea id="post-body" name="content" data-upload=""></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label for="inputDescription">Summary</label>
+                    <textarea id="inputDescription" name="summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputCategory">Category</label>
+                    <input type="text" id="inputCategory" name="category" class="form-control input-block-level" data-ajax-source="">
+                </div>
+                <div class="form-group">
+                    <label for="inputTags">Tags</label>
+                    <input type="text" id="inputTags" name="tags" class="form-control input-block-level" value="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Css {
+
+}
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/admin/js/pages/admin.posts.add.js"></script>
+}
