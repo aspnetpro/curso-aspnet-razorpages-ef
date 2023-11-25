@@ -61,7 +61,7 @@ namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts
                 Error("Your post cannot saved");
             }
 
-            return RedirectToPage("/Manage/Posts/Edit", new { postId = newPost.id });
+            return RedirectToPage("/Manage/Posts/Edit", new { postId = newPost.Id });
         }
     }
 }
