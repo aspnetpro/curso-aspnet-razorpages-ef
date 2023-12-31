@@ -1,24 +1,21 @@
+using AspNet.Blog.Models.Entities;
+using AspNet.Blog.Web.Common;
 using AspNet.Blog.Web.Infrastructure.Data;
+using AspNet.Blog.Web.Models;
+using AspNet.Blog.Web.Models.FormModel;
 using AspNet.Blog.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Net.NetworkInformation;
 
 namespace AspNet.Blog.Web.Pages.Posts;
 
-public class DetailsModel : PageModel
+public class DetailsModel(BlogContext blogContext,
+        IMemoryCache memoryCache) : PageModel
 {
-    private readonly BlogContext blogContext;
-    private readonly IMemoryCache memoryCache;
-
-    public DetailsModel(BlogContext blogContext,
-        IMemoryCache memoryCache)
-    {
-        this.blogContext = blogContext;
-        this.memoryCache = memoryCache;
-    }
-
     public PostDetailsViewModel? Post { get; set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string permalink)
@@ -42,7 +39,7 @@ public class DetailsModel : PageModel
                                 Tags = p.Tags,
                                 PublishedOn = p.PublishedOn.Value.ToShortDateString(),
                                 Category = new PostDetailsViewModel.CategoryViewModel
-                                { 
+                                {
                                     Name = p.Category.Name,
                                     Permalink = p.Category.Permalink
                                 },
@@ -54,11 +51,45 @@ public class DetailsModel : PageModel
 
         if (model == null)
         {
-            return NotFound();  
+            return NotFound();
         }
 
         this.Post = model;
-
         return Page();
+    }
+
+    public IActionResult OnGetCommentsAsync([FromRoute] string permalink
+        , [FromQuery] PageOptions pageOptions)
+    {
+        var model = (from c in blogContext.Comments
+                     where c.Post.Permalink == permalink
+                     select new CommentListItem
+                     {
+                         Id = c.Id,
+                         Author = c.Author,
+                         Email = c.Email,
+                         Content = c.Content,
+                         PublishedOn = c.PublishedOn.ToShortDateString() //.ToString("dd/MM/yyyy hh:mm")
+                     })
+                     .ToPagedList(pageOptions.Page, pageOptions.Size);
+
+        return Partial("_Comments", model);
+    }
+
+    public async Task<IActionResult> OnPostAddCommentAsync([FromBody] CommentFormModel formModel)
+    {
+        var comment = new Comment
+        {
+            Author = formModel.Author,
+            Email = formModel.Email,
+            Content = formModel.Content,
+            Post = await blogContext.Posts.FindAsync(formModel.PostId)
+        };
+        blogContext.Comments.Add(comment);
+        await blogContext.SaveChangesAsync();
+
+        memoryCache.Remove("post-" + comment.Post.Permalink);
+
+        return RedirectToPage("/Posts/Details", new { permalink = comment.Post.Permalink });
     }
 }

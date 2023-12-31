@@ -9,15 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Pages.Posts
 {
-    public class IndexModel : PageModel
+    public class IndexModel(BlogContext blogContext) 
+        : PageModel
     {
-        private readonly BlogContext blogContext;
-
-        public IndexModel(BlogContext blogContext)
-        {
-            this.blogContext = blogContext;
-        }
-
         public PagedList<PostListItemModel>? Posts { get; set; }
 
         public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)

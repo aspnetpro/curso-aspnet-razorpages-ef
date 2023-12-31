@@ -1,0 +1,25 @@
+﻿@model PagedList<CommentListItem>
+
+@foreach (var item in Model)
+{
+    <div class="list-group-item">
+        <div class="list-group-item-heading">
+            <h5 class="user"><i class="icon-user"></i> @item.Author</h5>
+            <div class="text-muted pull-right"><i class="icon-time"></i> @item.PublishedOn</div>
+        </div>
+        <div class="list-group-item-text">
+            @item.Content
+        </div>
+    </div>
+}
+@if (Model.HasNextPage)
+{
+    <button type="button"
+        data-url="@($"{Context.Request.Path}?handler=Comments&page={Model.NextPage}")"
+        data-action="load-comments" 
+        data-loading-text="Loading..." 
+        class="btn btn-primary btn-block">
+        More comments
+        <i class="glyphicon glyphicon-chevron-down"></i>
+    </button>
+}

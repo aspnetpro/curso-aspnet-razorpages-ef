@@ -38,14 +38,23 @@
                     <h2 class="title">@Model.Post.TotalComments Comments</h2>
                 </div>
                 <div class="col-xs-6 col-md-4">
-                    <button data-target="#modal-comment" data-toggle="modal" class="btn btn-primary pull-right">Add comment</button>
+                    <button data-bs-target="#modal-comment" data-bs-toggle="modal" class="btn btn-primary pull-right">Add comment</button>
                 </div>
             </div>
         </div>
-        <div id="comments-list" class="list-group">
-            @* @Html.Action("LoadComments", "Posts", new { permalink = Model.Post.Permalink }) *@
+        <div id="comments-list" class="list-group"
+             data-url="@($"{Request.Path}?handler=Comments")">
+            Loading comments...
         </div>
     </div>
 </section>
 
 @await Html.PartialAsync("_CommentModal", Model.Post)
+
+@section Css {
+}
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/blog.post.js"></script>
+}
