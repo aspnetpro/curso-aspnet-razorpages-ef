@@ -7,18 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts
 {
-    public class EditModel : PageModel
+    public class EditModel(BlogContext blogContext) 
+        : PageModel
     {
-        private readonly BlogContext blogContext;
-
-        public EditModel(BlogContext blogContext)
-        {
-            this.blogContext = blogContext;
-        }
-
         public PostViewModel Post { get; set; }
 
-        public async Task<IActionResult> OnGetAsync([FromQuery] int? postId)
+        public async Task<IActionResult> OnGetAsync(
+            [FromRoute] int? postId)
         {
             if (postId == null)
             {

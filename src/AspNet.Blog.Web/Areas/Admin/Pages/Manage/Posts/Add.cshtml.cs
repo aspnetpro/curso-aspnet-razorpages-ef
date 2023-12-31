@@ -6,15 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts
 {
-    public class AddModel : BaseModel
+    public class AddModel(BlogContext blogContext) 
+        : BaseModel
     {
-        private readonly BlogContext blogContext;
-
-        public AddModel(BlogContext blogContext)
-        {
-            this.blogContext = blogContext;
-        }
-
         public IActionResult OnGet()
         {
             return Page();
@@ -33,7 +27,7 @@ namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts
             if (!String.IsNullOrWhiteSpace(formModel.Category))
             {
                 string permalink = formModel.Category.ToSlug();
-                newPost.Category = this.blogContext.Categories.FirstOrDefault(x => x.Permalink == permalink);
+                newPost.Category = blogContext.Categories.FirstOrDefault(x => x.Permalink == permalink);
                 if (newPost.Category == null)
                 {
                     newPost.Category = new Category
@@ -50,8 +44,8 @@ namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts
 
             try
             {
-                this.blogContext.Add(newPost);
-                await this.blogContext.SaveChangesAsync();
+                blogContext.Add(newPost);
+                await blogContext.SaveChangesAsync();
 
                 Success("Your post has been saved");
             }

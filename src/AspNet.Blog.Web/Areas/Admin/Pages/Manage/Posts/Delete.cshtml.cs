@@ -6,18 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts;
 
-public class DeleteModel : PageModel
+public class DeleteModel(BlogContext blogContext) 
+    : PageModel
 {
-    private readonly BlogContext blogContext;
-
-    public DeleteModel(BlogContext blogContext)
-    {
-        this.blogContext = blogContext;
-    }
-
     public PostViewModel Post { get; set; }
 
-    public async Task<IActionResult> OnGetAsync([FromQuery] int? postId)
+    public async Task<IActionResult> OnGetAsync(
+        [FromRoute] int? postId)
     {
         if (postId == null)
         {
@@ -40,8 +35,8 @@ public class DeleteModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnDeleteAsync(
-        [FromQuery] int? postId)
+    public async Task<IActionResult> OnPostAsync(
+        [FromRoute] int? postId)
     {
         if (postId == null)
         {

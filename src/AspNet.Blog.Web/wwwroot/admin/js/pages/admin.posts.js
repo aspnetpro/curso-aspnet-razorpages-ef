@@ -25,9 +25,9 @@
                 "sWidth": "150px",
                 "bSortable": false,
                 "mRender": function (innerData, sSpecific, oData) {
-                    var render = '<a class="btn btn-primary btn-sm" href="' + oData.EditUrl + '">Edit</a>';
+                    var render = '<a class="btn btn-primary btn-sm" href="' + oData.editUrl + '">Edit</a>';
                     render += '&nbsp;';
-                    render += '<a class="btn btn-danger btn-sm" href="' + oData.DeleteUrl + '">Delete</a>';
+                    render += '<a class="btn btn-danger btn-sm" href="' + oData.deleteUrl + '">Delete</a>';
                     return render;
                 }
             }

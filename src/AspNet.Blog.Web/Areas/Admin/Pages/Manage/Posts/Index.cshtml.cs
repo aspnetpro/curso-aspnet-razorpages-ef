@@ -6,15 +6,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AspNet.Blog.Web.Areas.Admin.Pages.Manage.Posts;
 
-public class IndexModel : PageModel
+public class IndexModel(BlogContext blogContext) 
+    : PageModel
 {
-    private readonly BlogContext blogContext;
-
-    public IndexModel(BlogContext blogContext)
-    {
-        this.blogContext = blogContext;
-    }
-
     public IActionResult OnGet()
     {
         return Page();
@@ -23,7 +17,8 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnGetDatatableAsync(
         [FromQuery] jQueryDataTableRequestModel request)
     {
-        IQueryable<Post> posts = this.blogContext.Posts.OrderByDescending(x => x.PublishedOn);
+        IQueryable<Post> posts = blogContext.Posts
+            .OrderByDescending(x => x.PublishedOn);
 
         if (!String.IsNullOrWhiteSpace(request.sSearch))
         {
@@ -34,7 +29,9 @@ public class IndexModel : PageModel
         }
 
         int total = posts.Count();
-        posts = posts.Skip(request.iDisplayStart).Take(request.iDisplayLength);
+        posts = posts
+            .Skip(request.iDisplayStart)
+            .Take(request.iDisplayLength);
 
         var model = new jQueryDataTableResponseModel
         {
@@ -47,8 +44,8 @@ public class IndexModel : PageModel
                          PostId = r.Id,
                          Title = r.Title,
                          PublishedOn = r.PublishedOn.Value.ToShortDateString(),
-                         EditUrl = Url.Page("/Manage/Posts/Edit", new { postId = r.Id }),
-                         DeleteUrl = Url.Page("/Manage/Posts/Delete", new { postId = r.Id })
+                         EditUrl = Url.Page("/Manage/Posts/Edit", null, new { postId = r.Id, area = "Admin" }),
+                         DeleteUrl = Url.Page("/Manage/Posts/Delete", null, new { postId = r.Id, area = "Admin" })
                      }
         };
 
