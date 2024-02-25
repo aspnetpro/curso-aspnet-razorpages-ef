@@ -74,7 +74,8 @@ public class DetailsModel(BlogContext blogContext,
         return Partial("_Comments", model);
     }
 
-    public async Task<IActionResult> OnPostAddCommentAsync([FromBody] CommentFormModel formModel)
+    public async Task<IActionResult> OnPostAddCommentAsync(
+        [FromForm] CommentFormModel formModel)
     {
         var comment = new Comment
         {
@@ -83,6 +84,7 @@ public class DetailsModel(BlogContext blogContext,
             Content = formModel.Content,
             Post = await blogContext.Posts.FindAsync(formModel.PostId)
         };
+
         blogContext.Comments.Add(comment);
         await blogContext.SaveChangesAsync();
 

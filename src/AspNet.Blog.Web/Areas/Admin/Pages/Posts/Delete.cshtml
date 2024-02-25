@@ -1,0 +1,26 @@
+﻿@page "/admin/posts/delete/{postId:int}"
+@model Areas.Admin.Pages.Posts.DeleteModel
+@{
+    ViewData["Title"] = "Delete Post?";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+    @ViewData["Title"]
+</h1>
+
+<div class="row-fluid">
+    <div class="alert alert-danger alert-block">
+        <p>Are you sure delete this post?</p>
+    </div>
+
+    <p>Title: <b>@Model.Post.Title</b></p>
+    <p>Summary: <b>@Model.Post.Summary</b></p>
+    <br />
+    <form class="form-vertical" method="post">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Yes</button>
+            <a asp-area="Admin" asp-page="/Posts/Index" class="btn btn-secondary">No</a>
+        </div>
+    </form>
+</div>

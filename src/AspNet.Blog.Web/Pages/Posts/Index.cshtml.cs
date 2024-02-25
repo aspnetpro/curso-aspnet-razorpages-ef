@@ -7,50 +7,49 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNet.Blog.Web.Pages.Posts
+namespace AspNet.Blog.Web.Pages.Posts;
+
+public class IndexModel(BlogContext blogContext) 
+    : PageModel
 {
-    public class IndexModel(BlogContext blogContext) 
-        : PageModel
+    public PagedList<PostListItemModel>? Posts { get; set; }
+
+    public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)
     {
-        public PagedList<PostListItemModel>? Posts { get; set; }
+        IQueryable<Post> posts = blogContext.Posts
+            .Include(x => x.Category);
 
-        public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)
+        if (!String.IsNullOrWhiteSpace(pageOptions.Term))
         {
-            IQueryable<Post> posts = blogContext.Posts
-                .Include(x => x.Category);
-
-            if (!String.IsNullOrWhiteSpace(pageOptions.Term))
-            {
-                posts = posts.Where(post =>
-                    post.Title.Contains(pageOptions.Term) ||
-                    post.Summary.Contains(pageOptions.Term) ||
-                    post.Content.Contains(pageOptions.Term)
-                );
-            }
-
-            if (!String.IsNullOrWhiteSpace(pageOptions.Category))
-            {
-                posts = posts.Where(x => x.Category.Permalink == pageOptions.Category);
-            }
-
-            this.Posts = posts
-                .OrderByDescending(x => x.PublishedOn)
-                .Select(post => new PostListItemModel
-                {
-                    PostId = post.Id,
-                    Title = post.Title,
-                    Permalink = post.Permalink,
-                    Summary = post.Summary,
-                    PublishedOn = post.PublishedOn.Value.ToShortDateString(),
-                    Category = new PostListItemModel.CategoryViewModel
-                    {
-                        Name = post.Category.Name,
-                        Permalink = post.Category.Permalink
-                    }
-                })
-                .ToPagedList(pageOptions.Page, pageOptions.Size);
-
-            return Page();
+            posts = posts.Where(post =>
+                post.Title.Contains(pageOptions.Term) ||
+                post.Summary.Contains(pageOptions.Term) ||
+                post.Content.Contains(pageOptions.Term)
+            );
         }
+
+        if (!String.IsNullOrWhiteSpace(pageOptions.Category))
+        {
+            posts = posts.Where(x => x.Category.Permalink == pageOptions.Category);
+        }
+
+        this.Posts = posts
+            .OrderByDescending(x => x.PublishedOn)
+            .Select(post => new PostListItemModel
+            {
+                PostId = post.Id,
+                Title = post.Title,
+                Permalink = post.Permalink,
+                Summary = post.Summary,
+                PublishedOn = post.PublishedOn.Value.ToShortDateString(),
+                Category = new PostListItemModel.CategoryViewModel
+                {
+                    Name = post.Category.Name,
+                    Permalink = post.Category.Permalink
+                }
+            })
+            .ToPagedList(pageOptions.Page, pageOptions.Size);
+
+        return Page();
     }
 }

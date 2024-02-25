@@ -1,0 +1,20 @@
+﻿@if (ViewData["MSG_SUCCESS"] != null)
+{
+    <div class="row-fluid">
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Yes!</h4>
+            @ViewData["MSG_SUCCESS"]
+        </div>
+    </div>
+}
+@if (ViewData["MSG_ERROR"] != null)
+{
+    <div class="row-fluid">
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Ouch!</h4>
+            @ViewData["MSG_ERROR"]
+        </div>
+    </div>
+}

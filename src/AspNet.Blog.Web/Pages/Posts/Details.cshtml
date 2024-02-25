@@ -38,13 +38,15 @@
                     <h2 class="title">@Model.Post.TotalComments Comments</h2>
                 </div>
                 <div class="col-xs-6 col-md-4">
-                    <button data-bs-target="#modal-comment" data-bs-toggle="modal" class="btn btn-primary pull-right">Add comment</button>
+                    <button data-bs-target="#modal-comment" data-bs-toggle="modal" class="btn btn-primary pull-right">
+                        Add comment
+                    </button>
                 </div>
             </div>
         </div>
         <div id="comments-list" class="list-group"
              data-url="@($"{Request.Path}?handler=Comments")">
-            Loading comments...
+            <span id="load-comments-msg">Loading comments...</span>
         </div>
     </div>
 </section>

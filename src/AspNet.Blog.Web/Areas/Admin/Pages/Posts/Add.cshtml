@@ -1,0 +1,59 @@
+﻿@page "/admin/posts/add"
+@model Areas.Admin.Pages.Posts.AddModel
+@{
+    ViewData["Title"] = "Create New Post";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+    @ViewData["Title"]
+</h1>
+
+<partial name="Partials/_Messages" />
+
+<div class="row-fluid">
+    <form id="post-form" asp-area="Admin" asp-action="/Posts/Add" method="post" role="form">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" id="inputTitle" name="title" class="form-control input-block-level" maxlength="100" >
+                </div>
+                <div class="form-group">
+                    <textarea id="post-body" name="content" data-upload=""></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label for="inputDescription">Summary</label>
+                    <textarea id="inputDescription" name="summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputCategory">Category</label>
+                    <input type="text" id="inputCategory" name="category" class="form-control input-block-level" data-ajax-source="/admin/svc/categorias/autocomplete">
+                </div>
+                <div class="form-group">
+                    <label for="inputTags">Tags</label>
+                    <input type="text" id="inputTags" name="tags" class="form-control input-block-level" value="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Css {
+    <link href="~/admin/vendor/jquery-ui/css/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/admin/vendor/tagsinput/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="~/admin/vendor/redactor/redactor.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/admin/vendor/jquery-ui/js/jquery-ui-1.10.2.min.js"></script>
+    <script src="~/admin/vendor/tagsinput/jquery.tagsinput.min.js"></script>
+    <script src="~/admin/vendor/redactor/redactor.js"></script>
+    <script src="~/admin/js/pages/admin.posts.add.js"></script>
+}

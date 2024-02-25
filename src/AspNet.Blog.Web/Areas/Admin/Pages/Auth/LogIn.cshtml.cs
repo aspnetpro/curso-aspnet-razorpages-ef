@@ -13,7 +13,7 @@ public class LogInModel : PageModel
     {
         if (User.Identity.IsAuthenticated)
         {
-            return RedirectToPage("/Manage/Dashboard");
+            return RedirectToPage("/Dashboard");
         }
 
         return Page();
@@ -44,14 +44,17 @@ public class LogInModel : PageModel
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 principal,
-                new AuthenticationProperties { IsPersistent = logInModel.RememberMe });
+                new AuthenticationProperties 
+                { 
+                    IsPersistent = logInModel.RememberMe 
+                });
 
             if (!String.IsNullOrWhiteSpace(logInModel.ReturnUrl))
             {
                 return Redirect(logInModel.ReturnUrl);
             }
 
-            return RedirectToPage("/Manage/Dashboard");
+            return RedirectToPage("/Dashboard");
         }
 
         ViewData["Fail"] = true;

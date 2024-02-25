@@ -1,3 +1,4 @@
+using AspNet.Blog.Web.Areas.Admin.Services;
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -8,11 +9,7 @@ using System.IO.Compression;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AuthorizeAreaFolder("Admin", "/Manage");
-    options.Conventions.AllowAnonymousToFolder("/Auth");
-});
+builder.Services.AddRazorPages();
 
 // Add entity framework
 builder.Services.AddDbContext<BlogContext>((optionsAction) =>
@@ -50,9 +47,9 @@ builder.Services.AddTransient<IStorage, AzureBlobStorageImpl>();
 
 // Add Fluent Email
 builder.Services
-    .AddFluentEmail("fromemail@test.test")
+    .AddFluentEmail(defaultFromEmail: "fromemail@test.test")
     .AddRazorRenderer()
-    .AddSmtpSender("localhost", 25);
+    .AddSmtpSender(host: "localhost", port: 25);
 
 // Add authentication
 builder.Services
@@ -82,5 +79,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapAdminServiceEndpoints();
 
 app.Run();
