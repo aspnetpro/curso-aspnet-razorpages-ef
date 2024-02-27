@@ -16,6 +16,7 @@ public class AzureBlobStorageImpl : IStorage
 
     public async Task<string> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken = default)
     {
+        await blobContainerClient.CreateIfNotExistsAsync(Azure.Storage.Blobs.Models.PublicAccessType.Blob);
         var result = await blobContainerClient.UploadBlobAsync(fileName, stream, cancellationToken);
         return $"{azureBlobStorageOptions.Value.BaseUrl}/{azureBlobStorageOptions.Value.BlobName}/{fileName}";
     }
