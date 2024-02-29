@@ -1,0 +1,44 @@
+﻿@page "/contact"
+@model ContactModel
+@{
+    ViewData["Title"] = "Contato";
+}
+
+@section Tagline {
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">Contact Me!</h1>
+            </div>
+        </div>
+    </header>
+}
+
+<form id="form-contact" action="" role="form" method="post">
+    <div class="mb-3 row">
+        <div class="col">
+            <label for="InputName" asp-for="ContactForm!.Name">Name</label>
+            <input type="text" class="form-control" id="InputName" asp-for="ContactForm!.Name" name="Name" placeholder="Enter your name">
+            <span asp-validation-for="ContactForm!.Name" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label for="InputEmail" asp-for="ContactForm!.Email">Email address</label>
+            <input type="email" class="form-control" id="InputEmail" asp-for="ContactForm!.Email" name="Email" name="Email" placeholder="Enter email">
+            <span asp-validation-for="ContactForm!.Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="inputMessage" asp-for="ContactForm!.Message">Message</label>
+        <textarea class="form-control" rows="5" id="inputMessage" asp-for="ContactForm!.Message" name="Message" placeholder="Type your message"></textarea>
+        <span asp-validation-for="ContactForm!.Message" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>    
+</form> 
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

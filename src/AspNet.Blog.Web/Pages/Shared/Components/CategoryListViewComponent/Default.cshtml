@@ -1,13 +1,21 @@
 ﻿@model IEnumerable<CategoryListItem>
 
-<section class="panel panel-default mt-3">
-    <div class="panel-heading">Categories</div>
-    <ul class="list-group">
-        @foreach (var item in Model)
-        {
-            <li class="list-group-item">
-                <a asp-area="" asp-page="/Posts/Index" asp-route-category="@item.Permalink">@item.Name (@item.TotalPosts)</a>
-            </li>
-        }
-    </ul>
+<section>
+    <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item">
+                        <a asp-area="" asp-page="/Posts/Index" asp-route-category="@item.Permalink"
+                           class="text-decoration-none">
+                            @item.Name (@item.TotalPosts)
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </section>
+

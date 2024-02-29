@@ -15,10 +15,6 @@ public class CommentMap : IEntityTypeConfiguration<Comment>
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(x => x.Email)
-            .HasMaxLength(100)
-            .IsRequired();
-
         builder.Property(x => x.Content)
             .HasColumnType("VARCHAR(MAX)");
 

@@ -1,11 +1,13 @@
 ﻿jQuery(function ($) {
 
-	function loadComments(url) {
+	function loadComments(url, $button) {
 		$.get(url)
 			.done(function (result) {
 				$("#load-comments-msg").remove();
 				$(result).hide().appendTo("#comments-list").fadeIn();
-				//$button.remove();
+				if ($button) {
+					$button.remove();
+				}
 			})
 			.fail(function () {
 				alert("Cannot load comments!");
@@ -18,7 +20,7 @@
 		$button.button('loading');
 
 		setTimeout(function () {
-			loadComments($button.data('url'));
+			loadComments($button.data('url'), $button);
 		}, 2000);
 	});
 
@@ -28,6 +30,6 @@
 	});
 
 	// init
-	loadComments($('#comments-list').data('url'));
+	loadComments($('#comments-list').data('url'), null);
 
 });

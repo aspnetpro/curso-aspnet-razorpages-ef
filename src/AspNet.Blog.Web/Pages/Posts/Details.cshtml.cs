@@ -61,11 +61,11 @@ public class DetailsModel(BlogContext blogContext,
     {
         var model = (from c in blogContext.Comments
                      where c.Post.Permalink == permalink
+                     orderby c.PublishedOn descending
                      select new CommentListItem
                      {
                          Id = c.Id,
                          Author = c.Author,
-                         Email = c.Email,
                          Content = c.Content,
                          PublishedOn = c.PublishedOn.ToShortDateString() //.ToString("dd/MM/yyyy hh:mm")
                      })
@@ -74,15 +74,16 @@ public class DetailsModel(BlogContext blogContext,
         return Partial("_Comments", model);
     }
 
-    public async Task<IActionResult> OnPostAddCommentAsync(
-        [FromForm] CommentFormModel formModel)
+    [BindProperty]
+    public CommentFormModel CommentForm { get; set; }
+
+    public async Task<IActionResult> OnPostAddCommentAsync()
     {
         var comment = new Comment
         {
-            Author = formModel.Author,
-            Email = formModel.Email,
-            Content = formModel.Content,
-            Post = await blogContext.Posts.FindAsync(formModel.PostId)
+            Author = CommentForm.Author,
+            Content = CommentForm.Content,
+            Post = await blogContext.Posts.FindAsync(CommentForm.PostId)
         };
 
         blogContext.Comments.Add(comment);

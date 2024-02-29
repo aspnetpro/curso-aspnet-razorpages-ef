@@ -2,37 +2,38 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="author" content="Michel Banagouro" />
-    <meta name="description" content="Blog desenvolvido no curso de ASP.NET MVC" />
-    <title>@ViewData["Title"] - ASP.NET Blog</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <meta name="description" content="Blog desenvolvido na comunidade ASP.NET PRO" />
+    <title>@ViewData["Title"] - ASP.NET PRO Blog</title>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     @await RenderSectionAsync("Css", required: false)
 </head>
 <body>
     @* <partial name="_Header" /> *@
     @await Html.PartialAsync("Partials/_Header")
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="row">
-                <div class="col-xs-12 col-md-8">
-                    @RenderBody()
-                </div>
-                <div class="col-md-4">
-                    @await Html.PartialAsync("Partials/_Sidebar")
-                </div>
+    @await RenderSectionAsync("Tagline", required: false)
+
+    <!-- Page content-->
+    <div class="container @(IsSectionDefined("Tagline") ? "" : "mt-5")">
+        <div class="row">
+            <div class="col-lg-8">
+                @RenderBody()
             </div>
-        </main>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                @await Html.PartialAsync("Partials/_Sidebar")
+            </div>
+        </div>
     </div>
 
     @* <partial name="_Footer" /> *@
     @await Html.PartialAsync("Partials/_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

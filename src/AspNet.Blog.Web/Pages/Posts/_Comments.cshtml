@@ -2,24 +2,33 @@
 
 @foreach (var item in Model)
 {
-    <div class="list-group-item">
-        <div class="list-group-item-heading">
-            <h5 class="user"><i class="icon-user"></i> @item.Author</h5>
-            <div class="text-muted pull-right"><i class="icon-time"></i> @item.PublishedOn</div>
+    <!-- Single comment-->
+    <div class="d-flex mb-4">
+        <div class="flex-shrink-0">
+            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
         </div>
-        <div class="list-group-item-text">
+        <div class="ms-3">
+            <div class="fw-bold">@item.Author</div>
+            <div class="small text-muted">Published on @item.PublishedOn</div>
             @item.Content
         </div>
     </div>
 }
 @if (Model.HasNextPage)
 {
-    <button type="button"
-        data-url="@($"{Context.Request.Path}?handler=Comments&page={Model.NextPage}")"
-        data-action="load-comments" 
-        data-loading-text="Loading..." 
-        class="btn btn-primary btn-block">
+@*     <button type="button"
+            data-url="@($"{Context.Request.Path}?handler=Comments&page={Model.NextPage}")"
+            data-action="load-comments"
+            data-loading-text="Loading..."
+            class="btn btn-primary">
         More comments
         <i class="glyphicon glyphicon-chevron-down"></i>
+    </button> *@
+
+    <button class="btn btn-primary" type="button"
+            data-url="@($"{Context.Request.Path}?handler=Comments&page={Model.NextPage}")"
+            data-action="load-comments"
+            data-loading-text="Loading...">
+        More comments
     </button>
 }

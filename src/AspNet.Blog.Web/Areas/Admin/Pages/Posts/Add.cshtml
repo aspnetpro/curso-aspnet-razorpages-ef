@@ -4,40 +4,84 @@
     ViewData["Title"] = "Create New Post";
 }
 
-<!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">
-    @ViewData["Title"]
-</h1>
-
-<partial name="Partials/_Messages" />
-
-<div class="row-fluid">
-    <form id="post-form" asp-area="Admin" asp-action="/Posts/Add" method="post" role="form">
-        <div class="row">
-            <div class="col-xs-12 col-md-8">
-                <div class="form-group">
-                    <label for="inputTitle">Title</label>
-                    <input type="text" id="inputTitle" name="title" class="form-control input-block-level" maxlength="100" >
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+    <div class="container-fluid px-4">
+        <div class="page-header-content">
+            <div class="row align-items-center justify-content-between pt-3">
+                <div class="col-auto mb-3">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></div>
+                        @ViewData["Title"]
+                    </h1>
                 </div>
-                <div class="form-group">
-                    <textarea id="post-body" name="content" data-upload="/admin/svc/upload"></textarea>
+                <div class="col-12 col-xl-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" asp-area="Admin" asp-page="/Posts/Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back to All Posts
+                    </a>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group">
-                    <label for="inputDescription">Summary</label>
-                    <textarea id="inputDescription" name="summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid px-4">
+
+    <partial name="Partials/_Messages" />
+
+    <form id="post-form" asp-area="Admin" asp-action="/Posts/Add" method="post" role="form">
+        <div class="row gx-4">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">Title</div>
+                    <div class="card-body">
+                        <input type="text" id="inputTitle" name="title" class="form-control input-block-level" maxlength="100">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputCategory">Category</label>
-                    <input type="text" id="inputCategory" name="category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Summary
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="The post preview text shows below the post title, and is the post summary on blog pages." data-bs-original-title="The post preview text shows below the post title, and is the post summary on blog pages."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="inputDescription" name="summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputTags">Tags</label>
-                    <input type="text" id="inputTags" name="tags" class="form-control input-block-level" value="">
+                <div class="card card-header-actions mb-4 mb-lg-0">
+                    <div class="card-header">
+                        Content
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Markdown is supported within the post content editor." data-bs-original-title="Markdown is supported within the post content editor."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="post-body" name="content" data-upload="/admin/svc/upload"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-lg btn-success btn-block">Save</button>
+            </div>
+            <div class="col-lg-4">
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Publish
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="After submitting, your post will be published once it is approved by a moderator." data-bs-original-title="After submitting, your post will be published once it is approved by a moderator."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Submit for Approval</button></div>
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Category
+                    </div>
+                    <div class="card-body">
+                        <input type="text" id="inputCategory" name="category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4 mb-lg-0">
+                    <div class="card-header">
+                        Tags
+                    </div>
+                    <div class="card-body">
+                        <input type="text" id="inputTags" name="tags" class="form-control input-block-level" value="">
+                    </div>
                 </div>
             </div>
         </div>

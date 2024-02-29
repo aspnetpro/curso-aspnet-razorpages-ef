@@ -4,38 +4,56 @@
     ViewData["Title"] = "Absolutamente tudo sobre ASP.NET";
 }
 
+@section Tagline {
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">Welcome to ASP.NET PRO Blog!</h1>
+                <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            </div>
+        </div>
+    </header>
+}
+
 @if (Model.Posts?.Count() == 0)
 {
-    <div class="alert alert-info">
-        <p>Nenhum post encontrado</p>
+    <div class="alert alert-light text-center" role="alert">
+        Nenhum post encontrado
     </div>
 }
 
-<section id="posts">
+<div class="row">
     @foreach (var item in Model.Posts)
     {
-        <div class="post">
-            <h2><a asp-area="" asp-page="/Posts/Details" asp-route-permalink="@item.Permalink">@item.Title</a></h2>
-            <p class="text-muted">
-                Posted on <a href="#">@item.PublishedOn</a>
-                @if (item.Category != null)
-                {
-                    @:, in <a asp-area="" asp-page="?category=@item.Category.Permalink">@item.Category.Name</a>
-                }
-            </p>
-            <p>
-                @item.Summary
-            </p>
-            <p>
-                <a asp-area="" asp-page="/Posts/Details" asp-route-permalink="@item.Permalink" class="btn btn-primary btn-sm">
-                    <i class="glyphicon glyphicon-circle-arrow-right"></i>&nbsp;Read more
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="small text-muted">
+                    Posted on @item.PublishedOn
+                    @if (item.Category != null)
+                    {
+                        <text>
+                            , in <a class="text-decoration-none" asp-area="" asp-page="?category=@item.Category.Permalink">@item.Category.Name</a>
+                        </text>
+                    }
+                </div>
+                <h2 class="card-title h4">
+                    <a asp-area="" asp-page="/Posts/Details" asp-route-permalink="@item.Permalink"
+                       class="text-decoration-none">
+                        @item.Title
+                    </a>
+                </h2>
+                <p class="card-text">
+                    @item.Summary
+                </p>
+                <a class="btn btn-primary" asp-area="" asp-page="/Posts/Details" asp-route-permalink="@item.Permalink">
+                    Read more →
                 </a>
-                @* <partial name="_AdminActions" model="@new PostDetailsViewModel { Post = item }" /> *@
                 @await Html.PartialAsync("_AdminActions", new PostDetailsViewModel { PostId = item.PostId })
-            </p>
+            </div>
         </div>
     }
-</section>
+</div>
 
 @* <partial name="_Paging" model="@Model.Posts" /> *@
 @await Html.PartialAsync("_Paging", Model.Posts)

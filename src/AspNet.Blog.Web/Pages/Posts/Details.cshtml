@@ -4,59 +4,84 @@
     ViewData["Title"] = Model.Post?.Title;
 }
 
-<section>
-    <div class="post">
-        <h2><a href="#">@Model.Post?.Title</a></h2>
-        <p class="text-muted">
-            Posted on <a href="#">@Model.Post?.PublishedOn</a>
+<!-- Post content-->
+<article>
+    <!-- Post header-->
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">@Model.Post?.Title</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">
+            Posted on @Model.Post?.PublishedOn
+            <!-- Post categories-->
             @if (Model.Post?.Category != null)
             {
-                @:, in <a asp-area="" asp-page="/Posts/Index" asp-route-category="@Model.Post?.Category?.Permalink">@Model.Post.Category.Name</a>
+                <text>
+                    , in <a class="text-decoration-none" asp-area="" asp-page="/Posts/Index" asp-route-category="@Model.Post?.Category?.Permalink">@Model.Post.Category.Name</a>
+                </text>
             }
-        </p>
-        <p>
-            @await Html.PartialAsync("_AdminActions", Model.Post)
-        </p>
-        <div>
-            @Html.Raw(Model.Post?.Content)
         </div>
-        <p>
-            <i class="icon-tags"></i>&nbsp;Tags:
-            @foreach (var tagName in Model.Post?.GetTags())
-            {
-                <span class="label label-primary">@tagName</span>
-            }
-        </p>
-    </div>
-</section>
+    </header>
+    <!-- Post content-->
+    <section class="mb-5">
+        @Html.Raw(Model.Post?.Content)
+    </section>
 
-<section id="comments">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-12 col-md-8">
-                    <h2 class="title">@Model.Post.TotalComments Comments</h2>
+    <section class="mb-5">
+        <i class="bi bi-tags"></i>&nbsp;Tags:
+        @foreach (var tagName in Model.Post?.GetTags())
+        {
+            <span class="badge text-bg-secondary">@tagName</span>
+        }
+
+        @await Html.PartialAsync("_AdminActions", Model.Post)
+    </section>
+
+</article>
+
+<!-- Comments section-->
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+            <!-- Comment form-->
+            <form id="form-add-comment" class="mb-4" asp-page-handler="AddComment">
+                <input type="hidden" asp-for="CommentForm!.PostId" value="@Model.Post.PostId" />
+                <div class="mb-3">
+                    <input type="text" class="form-control" asp-for="CommentForm!.Author" placeholder="Enter your name" />
+                    <span asp-validation-for="CommentForm!.Author" class="text-danger"></span>
                 </div>
-                <div class="col-xs-6 col-md-4">
-                    <button data-bs-target="#modal-comment" data-bs-toggle="modal" class="btn btn-primary pull-right">
+                <div class="mb-3">
+                    <textarea class="form-control" rows="3" asp-for="CommentForm!.Content" placeholder="Join the discussion and leave a comment!"></textarea>
+                    <span asp-validation-for="CommentForm!.Content" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit" @* data-bs-target="#modal-comment" data-bs-toggle="modal" *@>
                         Add comment
                     </button>
                 </div>
+            </form>
+
+            <hr />
+            <h4 class="mb-4">@Model.Post.TotalComments Comment(s)</h4>
+
+            <div id="comments-list" data-url="@($"{Request.Path}?handler=Comments")">
+                <div id="load-comments-msg" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading comments...</span>
+                </div>
             </div>
-        </div>
-        <div id="comments-list" class="list-group"
-             data-url="@($"{Request.Path}?handler=Comments")">
-            <span id="load-comments-msg">Loading comments...</span>
+
         </div>
     </div>
 </section>
 
-@await Html.PartialAsync("_CommentModal", Model.Post)
+@* @await Html.PartialAsync("_CommentModal", Model) *@
 
 @section Css {
+
 }
 
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/blog.post.js"></script>
 }

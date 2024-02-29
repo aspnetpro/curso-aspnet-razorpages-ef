@@ -1,10 +1,13 @@
 ﻿<section>
     <form asp-area="" asp-page="/Posts/Index" method="get" role="search" class="form-group">
-        <div class="input-group">
-            <input type="text" class="form-control" name="term" placeholder="Search...">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">Go!</button>
-            </span>
+        <div class="card mb-4">
+            <div class="card-header">Search</div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="term" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                    <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                </div>
+            </div>
         </div>
     </form>
 </section>

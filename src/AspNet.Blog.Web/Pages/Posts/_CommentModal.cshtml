@@ -1,4 +1,4 @@
-﻿@model AspNet.Blog.Web.Models.ViewModel.PostDetailsViewModel
+﻿@model DetailsModel
 
 <div id="modal-comment" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -9,20 +9,16 @@
             </div>
             <div class="modal-body">
                 <form id="form-add-comment" asp-page-handler="AddComment" role="form" method="post">
-                    <input type="hidden" name="PostId" value="@Model.PostId" />
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="InputName">Name</label>
-                            <input type="text" class="form-control" id="InputName" name="Author" placeholder="Enter your name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="InputEmail">Email address</label>
-                            <input type="email" class="form-control" id="InputEmail" name="Email" placeholder="Enter email">
-                        </div>
+                    <input type="hidden" name="PostId" value="@Model.Post.PostId" />
+                    <div class="mb-3">
+                        <label for="InputName" asp-for="CommentForm!.Author">Name</label>
+                        <input type="text" class="form-control" asp-for="CommentForm!.Author" id="InputName" name="Author" placeholder="Enter your name">
+                        <span asp-validation-for="CommentForm!.Author" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="inputMessage">Message</label>
-                        <textarea class="form-control" rows="5" id="inputMessage" name="Content" placeholder="Type your message"></textarea>
+                    <div class="mb-3">
+                        <label for="inputMessage" asp-for="CommentForm!.Content">Message</label>
+                        <textarea class="form-control" asp-for="CommentForm!.Content" rows="5" id="inputMessage" name="Content" placeholder="Type your message"></textarea>
+                        <span asp-validation-for="CommentForm!.Content" class="text-danger"></span>
                     </div>
                 </form>
             </div>

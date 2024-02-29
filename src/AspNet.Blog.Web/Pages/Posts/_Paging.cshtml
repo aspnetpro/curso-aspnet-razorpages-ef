@@ -1,15 +1,19 @@
 ﻿@model AspNet.Blog.Web.Common.IPagedList
 
-<ul class="pager">
-    @if (Model.HasPreviousPage)
-    {
-    <li class="next"><a href="@CreateUrl(Model.PreviousPage)">newest &rarr;</a></li>
-    }
-    @if (Model.HasNextPage)
-    {
-    <li class="previous"><a href="@CreateUrl(Model.NextPage)">&larr; older</a></li>
-    }
-</ul>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-left">
+        <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+            <a href="@CreateUrl(Model.NextPage)" class="page-link">
+                &larr; Older
+            </a>
+        </li>
+        <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+            <a href="@CreateUrl(Model.PreviousPage)" class="page-link">
+                Newest &rarr;
+            </a>
+        </li>
+    </ul>
+</nav>
 
 @functions {
     protected string CreateUrl(int page)

@@ -13,84 +13,78 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@ViewData["Title"] - ASP.NET Blog Admin</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="~/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="~/admin/css/sb-admin-2.min.css" rel="stylesheet" />
-
+    <title>@ViewData["Title"] - ASP.NET PRO Blog Admin</title>
+    <link href="~/admin/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="~/admin/assets/img/favicon.png" />
+    <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gradient-primary">
-
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container-xl px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <!-- Basic login form-->
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header justify-content-center"><h3 class="fw-light my-4">Login</h3></div>
+                                <div class="card-body">
                                     @if (ViewData["Fail"] != null)
                                     {
                                         <div class="alert alert-danger">Incorrect Username or Password!</div>
                                     }
-                                    <form asp-area="Admin" asp-action="/Auth/LogIn" method="post" role="form" class="user">
+                                    <!-- Login form-->
+                                    <form asp-area="Admin" asp-action="/Auth/LogIn">
                                         <input type="hidden" name="ReturnUrl" value="@Request.Query["ReturnUrl"]" />
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                   id="username" name="Username" aria-describedby="username"
-                                                   placeholder="Username">
+                                        <!-- Form Group (email address)-->
+                                        <div class="mb-3">
+                                            <label class="small mb-1" for="inputUsername">Username</label>
+                                            <input class="form-control" id="inputUsername" name="Username" type="text" placeholder="Enter username" />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                   id="password" name="password" placeholder="Password">
+                                        <!-- Form Group (password)-->
+                                        <div class="mb-3">
+                                            <label class="small mb-1" for="inputPassword">Password</label>
+                                            <input class="form-control" id="inputPassword" name="Password" type="password" placeholder="Enter password" />
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe">
-                                                <label class="custom-control-label" for="customCheck">
-                                                    Remember
-                                                    Me
-                                                </label>
+                                        <!-- Form Group (remember password checkbox)-->
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" id="rememberPasswordCheck" name="RememberMe" type="checkbox" value="true" />
+                                                <label class="form-check-label" for="rememberPasswordCheck">Remember password</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
+                                        <!-- Form Group (login box)-->
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                Login
+                                            </button>
+                                        </div>
                                     </form>
-                                    <hr>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-
+            </main>
         </div>
-
+        <div id="layoutAuthentication_footer">
+            <footer class="footer-admin mt-auto footer-dark">
+                <div class="container-xl px-4">
+                    <div class="row">
+                        <div class="col-md-6 small">Copyright &copy; ASP.NET PRO Blog 2024</div>
+                        <div class="col-md-6 text-md-end small">
+                            <a href="#!">Privacy Policy</a>
+                            &middot;
+                            <a href="#!">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/adminvendor/jquery/jquery.min.js"></script>
-    <script src="~/adminvendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="~/adminvendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="~/adminjs/sb-admin-2.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/admin/js/scripts.js"></script>
 </body>
 </html>
