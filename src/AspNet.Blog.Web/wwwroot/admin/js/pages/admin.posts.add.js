@@ -9,13 +9,6 @@
         imageUpload: $postBody.data('upload')
     });
 
-    //$('#post-form').validate({
-    //    rules: {
-    //        title: 'required',
-    //        summary: 'required'
-    //    }
-    //});
-
     $('#inputTags').tagsInput({
         height: 'auto',
         width: 'auto'

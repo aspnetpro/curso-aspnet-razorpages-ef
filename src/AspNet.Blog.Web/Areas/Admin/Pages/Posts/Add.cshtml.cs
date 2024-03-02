@@ -16,25 +16,30 @@ public class AddModel(BlogContext blogContext)
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(
-        [FromForm] PostFormModel formModel)
-    {
-        Post newPost = new Post();
-        newPost.Permalink = formModel.Title.ToSlug();
-        newPost.Title = formModel.Title;
-        newPost.Summary = formModel.Summary;
-        newPost.Content = formModel.Content;
-        newPost.Tags = formModel.Tags;
+    [BindProperty]
+    public PostFormModel PostForm { get; set; }
 
-        if (!String.IsNullOrWhiteSpace(formModel.Category))
+    public async Task<IActionResult> OnPostAsync()
+    {
+        Post newPost = new Post
         {
-            string permalink = formModel.Category.ToSlug();
+            Permalink = PostForm.Permalink,
+            Title = PostForm.Title,
+            Summary = PostForm.Summary,
+            Content = PostForm.Content,
+            Tags = PostForm.Tags,
+            PublishedOn = DateTime.Now
+        };
+
+        if (!String.IsNullOrWhiteSpace(PostForm.Category))
+        {
+            string permalink = PostForm.Category.ToSlug();
             newPost.Category = blogContext.Categories.FirstOrDefault(x => x.Permalink == permalink);
             if (newPost.Category == null)
             {
                 newPost.Category = new Category
                 {
-                    Name = formModel.Category,
+                    Name = PostForm.Category,
                     Permalink = permalink
                 };
             }

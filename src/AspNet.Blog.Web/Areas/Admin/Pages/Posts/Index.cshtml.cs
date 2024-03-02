@@ -45,7 +45,7 @@ public class IndexModel(BlogContext blogContext)
                      {
                          PostId = r.Id,
                          Title = r.Title,
-                         PublishedOn = r.PublishedOn.Value.ToShortDateString(),
+                         PublishedOn = DateTime.Now.ToShortDateString(), //r.PublishedOn.Value.ToShortDateString(),
                          EditUrl = Url.Page("/Posts/Edit", null, new { postId = r.Id, area = "Admin" }),
                          DeleteUrl = Url.Page("/Posts/Delete", null, new { postId = r.Id, area = "Admin" })
                      }

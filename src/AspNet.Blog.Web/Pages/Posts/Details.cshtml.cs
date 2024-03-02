@@ -53,6 +53,7 @@ public class DetailsModel(BlogContext blogContext,
         }
 
         this.Post = model;
+
         return Page();
     }
 

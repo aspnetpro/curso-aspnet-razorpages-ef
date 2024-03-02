@@ -35,52 +35,57 @@
                 <div class="card mb-4">
                     <div class="card-header">Title</div>
                     <div class="card-body">
-                        <input type="text" id="inputTitle" name="title" class="form-control input-block-level" maxlength="100">
+                        <input type="text" id="inputTitle" asp-for="PostForm!.Title" class="form-control input-block-level" maxlength="100">
+                        <span asp-validation-for="PostForm!.Title" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="card card-header-actions mb-4">
                     <div class="card-header">
                         Summary
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="The post preview text shows below the post title, and is the post summary on blog pages." data-bs-original-title="The post preview text shows below the post title, and is the post summary on blog pages."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                     </div>
                     <div class="card-body">
-                        <textarea id="inputDescription" name="summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                        <textarea id="inputDescription" asp-for="PostForm!.Summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                        <span asp-validation-for="PostForm!.Summary" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="card card-header-actions mb-4 mb-lg-0">
                     <div class="card-header">
                         Content
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Markdown is supported within the post content editor." data-bs-original-title="Markdown is supported within the post content editor."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                     </div>
                     <div class="card-body">
-                        <textarea id="post-body" name="content" data-upload="/admin/svc/upload"></textarea>
+                        <textarea id="post-body" asp-for="PostForm!.Content" data-upload="/admin/svc/upload"></textarea>
+                        <span asp-validation-for="PostForm!.Content" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card card-header-actions mb-4">
-                    <div class="card-header">
-                        Publish
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="After submitting, your post will be published once it is approved by a moderator." data-bs-original-title="After submitting, your post will be published once it is approved by a moderator."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Submit for Approval</button></div>
-                    </div>
-                </div>
+            <div class="col-lg-4">                
                 <div class="card card-header-actions mb-4">
                     <div class="card-header">
                         Category
                     </div>
                     <div class="card-body">
-                        <input type="text" id="inputCategory" name="category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                        <input type="text" id="inputCategory" asp-for="PostForm!.Category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                        <span asp-validation-for="PostForm!.Category" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="card card-header-actions mb-4 mb-lg-0">
+                <div class="card card-header-actions mb-4 ">
                     <div class="card-header">
                         Tags
                     </div>
                     <div class="card-body">
-                        <input type="text" id="inputTags" name="tags" class="form-control input-block-level" value="">
+                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" value="">
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4 mb-lg-0">
+                    <div class="card-header">
+                        Publish
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid">
+                            <button type="submit" class="fw-500 btn btn-primary">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +101,7 @@
 
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/admin/vendor/jquery-ui/js/jquery-ui-1.10.2.min.js"></script>
     <script src="~/admin/vendor/tagsinput/jquery.tagsinput.min.js"></script>
     <script src="~/admin/vendor/redactor/redactor.js"></script>
