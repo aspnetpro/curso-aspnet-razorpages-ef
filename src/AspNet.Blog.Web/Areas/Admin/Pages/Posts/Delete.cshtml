@@ -1,7 +1,8 @@
-﻿@page "/admin/posts/delete/{postId:int}"
+﻿@page "/admin/post/{postId:int}/delete"
 @model Areas.Admin.Pages.Posts.DeleteModel
 @{
     ViewData["Title"] = "Delete Post?";
+    ViewData["Menu.Posts"] = true;
 }
 
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">

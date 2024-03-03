@@ -1,5 +1,110 @@
-﻿@page "/admin/posts/edit/{postId:int}"
+﻿@page "/admin/post/{postId:int}/edit"
 @model Areas.Admin.Pages.Posts.EditModel
 @{
     ViewData["Title"] = "Edit Post";
+    ViewData["Menu.Posts"] = true;
+}
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+    <div class="container-fluid px-4">
+        <div class="page-header-content">
+            <div class="row align-items-center justify-content-between pt-3">
+                <div class="col-auto mb-3">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></div>
+                        @ViewData["Title"]
+                    </h1>
+                </div>
+                <div class="col-12 col-xl-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" asp-area="Admin" asp-page="/Posts/Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid px-4">
+
+    <partial name="Partials/_Messages" />
+
+    <form id="post-form" asp-area="Admin" asp-action="/Posts/Edit" method="post" role="form">
+        <div class="row gx-4">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">Title</div>
+                    <div class="card-body">
+                        <input type="text" id="inputTitle" asp-for="PostForm!.Title" class="form-control input-block-level" maxlength="100">
+                        <span asp-validation-for="PostForm!.Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Summary
+                    </div>
+                    <div class="card-body">
+                        <textarea id="inputDescription" asp-for="PostForm!.Summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                        <span asp-validation-for="PostForm!.Summary" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4 mb-lg-0">
+                    <div class="card-header">
+                        Content
+                    </div>
+                    <div class="card-body">
+                        <textarea id="post-body" asp-for="PostForm!.Content" data-upload="/admin/svc/upload"></textarea>
+                        <span asp-validation-for="PostForm!.Content" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">                
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Category
+                    </div>
+                    <div class="card-body">
+                        <input type="text" id="inputCategory" asp-for="PostForm!.Category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                        <span asp-validation-for="PostForm!.Category" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4 ">
+                    <div class="card-header">
+                        Tags
+                    </div>
+                    <div class="card-body">
+                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" value="">
+                    </div>
+                </div>
+                <div class="card card-header-actions mb-4 mb-lg-0">
+                    <div class="card-header">
+                        Publish
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid">
+                            <button type="submit" class="fw-500 btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Css {
+    <link href="~/admin/vendor/jquery-ui/css/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/admin/vendor/tagsinput/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="~/admin/vendor/redactor/redactor.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/admin/vendor/jquery-ui/js/jquery-ui-1.10.2.min.js"></script>
+    <script src="~/admin/vendor/tagsinput/jquery.tagsinput.min.js"></script>
+    <script src="~/admin/vendor/redactor/redactor.js"></script>
+    <script src="~/admin/js/pages/admin.posts.add.js"></script>
 }

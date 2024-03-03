@@ -24,6 +24,9 @@ builder.Services.AddDbContext<BlogContext>((optionsAction) =>
 // Add cache
 builder.Services.AddMemoryCache();
 
+// Add response caching
+builder.Services.AddResponseCaching();
+
 // Add compression response
 builder.Services.AddResponseCompression(options =>
 {
@@ -70,6 +73,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseResponseCompression();
+app.UseResponseCaching();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

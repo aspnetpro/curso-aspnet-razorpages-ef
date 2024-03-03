@@ -14,6 +14,7 @@ public class IndexModel(BlogContext blogContext)
 {
     public PagedList<PostListItemModel>? Posts { get; set; }
 
+    [ResponseCache(Duration = 60)]
     public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)
     {
         IQueryable<Post> posts = blogContext.Posts
