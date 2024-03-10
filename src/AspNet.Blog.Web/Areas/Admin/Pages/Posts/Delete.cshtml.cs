@@ -50,6 +50,6 @@ public class DeleteModel(BlogContext blogContext)
             .ExecuteDeleteAsync();
         await blogContext.SaveChangesAsync();
 
-        return RedirectToPage("/Admin/Posts/Index");
+        return RedirectToPage("/Posts/Index");
     }
 }
