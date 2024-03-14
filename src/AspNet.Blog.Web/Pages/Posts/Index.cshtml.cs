@@ -5,16 +5,17 @@ using AspNet.Blog.Web.Models;
 using AspNet.Blog.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Pages.Posts;
 
+[OutputCache(PolicyName = "default")]
 public class IndexModel(BlogContext blogContext) 
     : PageModel
 {
     public PagedList<PostListItemModel>? Posts { get; set; }
 
-    [ResponseCache(Duration = 60)]
     public IActionResult OnGet([FromQuery] PostsPageOptions pageOptions)
     {
         IQueryable<Post> posts = blogContext.Posts

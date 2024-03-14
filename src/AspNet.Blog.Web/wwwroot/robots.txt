@@ -1,0 +1,4 @@
+﻿User-agent: *
+Disallow: 
+Disallow: /cgi-bin/
+Sitemap: https://mbanagouro.com.br/sitemap.xml

@@ -2,8 +2,10 @@ using AspNet.Blog.Web.Areas.Admin.Services;
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,6 +64,10 @@ builder.Services
         opt.LoginPath = "/admin";
     });
 
+builder.Services.AddOutputCache(options => {
+    options.AddPolicy("default", b => b.Expire(TimeSpan.FromHours(1)));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -75,10 +81,23 @@ if (!app.Environment.IsDevelopment())
 app.UseResponseCompression();
 app.UseResponseCaching();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    HttpsCompression = HttpsCompressionMode.Compress,
+    OnPrepareResponse = ctx =>
+    {
+        var headers = ctx.Context.Response.GetTypedHeaders();
+        headers.CacheControl = new CacheControlHeaderValue
+        {
+            Public = true,
+            MaxAge = TimeSpan.FromDays(7) // one week
+        };
+    }
+});
 
 app.UseRouting();
-
+app.UseOutputCache();
 app.UseAuthentication();
 app.UseAuthorization();
 
