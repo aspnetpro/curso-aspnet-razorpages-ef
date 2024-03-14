@@ -3,23 +3,35 @@ using AspNet.Blog.Web.Models.FormModel;
 using FluentEmail.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing.Template;
 
 namespace AspNet.Blog.Web.Pages;
 
 public class ContactModel : PageModel
 {
+    private readonly IFluentEmail email;
+
     [BindProperty]
     public ContactFormModel ContactForm { get; set; }
 
-    public async Task<IActionResult> OnPostAsync()
+    public ContactModel(IFluentEmail email)
     {
-        var email = await Email
-            .From($"{ContactForm?.Name} <{ContactForm?.Email}>")
-            .To("mbanagouro@outlook.com", "Michel Banagouro")
-            .Subject("Novo contato!")
-            .UsingTemplate(Resource.contato, ContactForm)
-            .SendAsync();
+        this.email = email;
+    }
 
-        return Page();
+    public void OnPost()
+    {
+        var response = this.email
+            .To("michel@leanwork.com.br", "Michel Banagouro")
+            .ReplyTo(ContactForm?.Email, ContactForm?.Name)
+            .Subject("Novo contato!")
+            .Body(ContactForm?.Message)
+            //.UsingTemplate(Templates.Index, ContactForm)
+            .Send();
+
+        if (!response.Successful)
+        {
+            ViewData["MSG_ERROR"] = response.ErrorMessages.FirstOrDefault();
+        }
     }
 }

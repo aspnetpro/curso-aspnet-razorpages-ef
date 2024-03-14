@@ -2,6 +2,7 @@
 @model ContactModel
 @{
     ViewData["Title"] = "Contato";
+    ViewData["NavItem.Contact"] = "active";
 }
 
 @section Tagline {
@@ -15,22 +16,36 @@
     </header>
 }
 
+@if (ViewData["MSG_ERROR"] != null)
+{
+    <div class="alert alert-red alert-solid alert-icon" role="alert">
+        <div class="alert-icon-aside">
+            <i class="far fa-cross"></i>
+        </div>
+        <div class="alert-icon-content">
+            <h3 class="alert-heading">Ouch!</h3>
+            @ViewData["MSG_ERROR"]
+            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
 <form id="form-contact" action="" role="form" method="post">
     <div class="mb-3 row">
         <div class="col">
-            <label for="InputName" asp-for="ContactForm!.Name">Name</label>
-            <input type="text" class="form-control" id="InputName" asp-for="ContactForm!.Name" name="Name" placeholder="Enter your name">
+            <label asp-for="ContactForm!.Name">Name</label>
+            <input type="text" class="form-control" id="InputName" asp-for="ContactForm!.Name" placeholder="Enter your name">
             <span asp-validation-for="ContactForm!.Name" class="text-danger"></span>
         </div>
         <div class="col">
-            <label for="InputEmail" asp-for="ContactForm!.Email">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" asp-for="ContactForm!.Email" name="Email" name="Email" placeholder="Enter email">
+            <label asp-for="ContactForm!.Email">Email address</label>
+            <input type="email" class="form-control" id="InputEmail" asp-for="ContactForm!.Email" placeholder="Enter email">
             <span asp-validation-for="ContactForm!.Email" class="text-danger"></span>
         </div>
     </div>
     <div class="mb-3">
-        <label for="inputMessage" asp-for="ContactForm!.Message">Message</label>
-        <textarea class="form-control" rows="5" id="inputMessage" asp-for="ContactForm!.Message" name="Message" placeholder="Type your message"></textarea>
+        <label asp-for="ContactForm!.Message">Message</label>
+        <textarea class="form-control" rows="5" id="inputMessage" asp-for="ContactForm!.Message" placeholder="Type your message"></textarea>
         <span asp-validation-for="ContactForm!.Message" class="text-danger"></span>
     </div>
     <div class="mb-3">

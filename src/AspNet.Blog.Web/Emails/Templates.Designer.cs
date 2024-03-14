@@ -22,14 +22,14 @@ namespace AspNet.Blog.Web.Emails {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resource {
+    public class Templates {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resource() {
+        internal Templates() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace AspNet.Blog.Web.Emails {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AspNet.Blog.Web.Emails.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AspNet.Blog.Web.Emails.Templates", typeof(Templates).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -69,9 +69,9 @@ namespace AspNet.Blog.Web.Emails {
         ///
         ///@Html.Raw(Model.Message).
         /// </summary>
-        public static string contato {
+        public static string Index {
             get {
-                return ResourceManager.GetString("contato", resourceCulture);
+                return ResourceManager.GetString("Index", resourceCulture);
             }
         }
     }

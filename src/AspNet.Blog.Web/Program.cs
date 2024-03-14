@@ -1,6 +1,7 @@
 using AspNet.Blog.Web.Areas.Admin.Services;
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
+using FluentEmail.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -52,9 +53,12 @@ builder.Services.AddTransient<IStorage, AzureBlobStorageImpl>();
 
 // Add Fluent Email
 builder.Services
-    .AddFluentEmail(defaultFromEmail: "fromemail@test.test")
+    .AddFluentEmail("sender@mbanagouro.com.br", "ASP.NET PRO BLOG")
     .AddRazorRenderer()
-    .AddSmtpSender(host: "localhost", port: 25);
+    .AddSmtpSender(host: "smtp.mailgun.org",
+        port: 587,
+        username: "postmaster@mbanagouro.com.br",
+        password: "85c17b6273ed8ac3a5b9c3096f47f366-b02bcf9f-955f019d");
 
 // Add authentication
 builder.Services
