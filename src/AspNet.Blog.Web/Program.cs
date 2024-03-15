@@ -1,13 +1,10 @@
 using AspNet.Blog.Web.Areas.Admin.Services;
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
-using FluentEmail.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
-using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,23 +25,23 @@ builder.Services.AddDbContext<BlogContext>((optionsAction) =>
 builder.Services.AddMemoryCache();
 
 // Add response caching
-builder.Services.AddResponseCaching();
+//builder.Services.AddResponseCaching();
 
 // Add compression response
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-    options.Providers.Add<BrotliCompressionProvider>();
-    options.Providers.Add<GzipCompressionProvider>();
-});
-builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
-{
-    options.Level = CompressionLevel.Fastest;
-});
-builder.Services.Configure<GzipCompressionProviderOptions>(options =>
-{
-    options.Level = CompressionLevel.SmallestSize;
-});
+//builder.Services.AddResponseCompression(options =>
+//{
+//    options.EnableForHttps = true;
+//    options.Providers.Add<BrotliCompressionProvider>();
+//    options.Providers.Add<GzipCompressionProvider>();
+//});
+//builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+//{
+//    options.Level = CompressionLevel.Fastest;
+//});
+//builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+//{
+//    options.Level = CompressionLevel.SmallestSize;
+//});
 
 // Add Azure Storage
 builder.Services.AddOptions<AzureBlobStorageOptions>()
@@ -82,8 +79,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseResponseCompression();
-app.UseResponseCaching();
+//app.UseResponseCompression();
+//app.UseResponseCaching();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles(new StaticFileOptions

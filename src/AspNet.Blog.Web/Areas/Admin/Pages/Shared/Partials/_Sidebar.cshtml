@@ -2,12 +2,12 @@
     <div class="sidenav-menu">
         <div class="nav accordion" id="accordionSidenav">
             <div class="sidenav-menu-heading">General</div>
-            <a class="nav-link @SetActive(ViewData["Menu.Dashboard"])" asp-area="Admin" asp-page="/Dashboard">
+            <a class="nav-link @ViewData["Sidebar.Dashboard"]" asp-area="Admin" asp-page="/Dashboard">
                 <div class="nav-link-icon"><i data-feather="activity"></i></div>
                 Dashboards
             </a>
             <div class="sidenav-menu-heading">CMS</div>
-            <a class="nav-link @SetActive(ViewData["Menu.Posts"])" asp-area="Admin" asp-page="/Posts/Index">
+            <a class="nav-link @ViewData["Sidebar.Posts"]" asp-area="Admin" asp-page="/Posts/Index">
                 <div class="nav-link-icon"><i data-feather="file-text"></i></div>
                 Posts
             </a>
@@ -21,16 +21,3 @@
         </div>
     </div>
 </nav>
-
-@functions {
-    string SetActive(object value)
-    {
-        if (value == null)
-        {
-            return "";
-        }
-        bool isActive = false;
-        Boolean.TryParse(value.ToString(), out isActive);
-        return isActive ? "active" : "";
-    }
-}
