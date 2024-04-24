@@ -16,7 +16,7 @@
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" asp-area="Admin" asp-page="/Posts/Index">
+                    <a class="btn btn-sm btn-light text-primary" asp-page="/Posts/Index">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                         Back to All Posts
                     </a>
@@ -36,7 +36,7 @@
                 <div class="card mb-4">
                     <div class="card-header">Title</div>
                     <div class="card-body">
-                        <input type="text" id="inputTitle" asp-for="PostForm!.Title" class="form-control input-block-level" maxlength="100">
+                        <input type="text" id="inputTitle" asp-for="PostForm!.Title" class="form-control input-block-level" maxlength="70">
                         <span asp-validation-for="PostForm!.Title" class="text-danger"></span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         Content
                     </div>
                     <div class="card-body">
-                        <textarea id="post-body" asp-for="PostForm!.Content" data-upload="/admin/svc/upload"></textarea>
+                        <textarea id="post-body" asp-for="PostForm!.Content" class="form-control input-block-level" rows="15" data-upload="/admin/svc/upload"></textarea>
                         <span asp-validation-for="PostForm!.Content" class="text-danger"></span>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                         Category
                     </div>
                     <div class="card-body">
-                        <input type="text" id="inputCategory" asp-for="PostForm!.Category" class="form-control input-block-level" data-source="/admin/svc/categories/autocomplete">
+                        <input type="text" id="inputCategory" asp-for="PostForm!.Category" class="form-control input-block-level" maxlength="70" data-source="/admin/svc/categories/autocomplete">
                         <span asp-validation-for="PostForm!.Category" class="text-danger"></span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         Tags
                     </div>
                     <div class="card-body">
-                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" value="">
+                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" maxlength="150">
                     </div>
                 </div>
                 <div class="card card-header-actions mb-4 mb-lg-0">

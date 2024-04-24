@@ -45,7 +45,7 @@
                         Summary
                     </div>
                     <div class="card-body">
-                        <textarea id="inputDescription" asp-for="PostForm!.Summary" class="form-control input-block-level" maxlength="160" rows="5"></textarea>
+                        <textarea id="inputDescription" asp-for="PostForm!.Summary" class="form-control input-block-level" maxlength="500" rows="5"></textarea>
                         <span asp-validation-for="PostForm!.Summary" class="text-danger"></span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         Content
                     </div>
                     <div class="card-body">
-                        <textarea id="post-body" asp-for="PostForm!.Content" data-upload="/admin/svc/upload"></textarea>
+                        <textarea id="post-body" asp-for="PostForm!.Content" class="form-control input-block-level" rows="15" data-upload="/admin/svc/upload"></textarea>
                         <span asp-validation-for="PostForm!.Content" class="text-danger"></span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         Tags
                     </div>
                     <div class="card-body">
-                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" value="">
+                        <input type="text" id="inputTags" asp-for="PostForm!.Tags" class="form-control input-block-level" maxlength="150">
                     </div>
                 </div>
                 <div class="card card-header-actions mb-4 mb-lg-0">
