@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,17 +84,14 @@ if (!app.Environment.IsDevelopment())
 //app.UseResponseCaching();
 app.UseHttpsRedirection();
 
+var cacheMaxAgeOneWeek = (60 * 60 * 24 * 7).ToString();
 app.UseStaticFiles(new StaticFileOptions
 {
     HttpsCompression = HttpsCompressionMode.Compress,
     OnPrepareResponse = ctx =>
     {
-        var headers = ctx.Context.Response.GetTypedHeaders();
-        headers.CacheControl = new CacheControlHeaderValue
-        {
-            Public = true,
-            MaxAge = TimeSpan.FromDays(7) // one week
-        };
+        ctx.Context.Response.Headers.Append(
+             "Cache-Control", $"public, max-age={cacheMaxAgeOneWeek}");
     }
 });
 
