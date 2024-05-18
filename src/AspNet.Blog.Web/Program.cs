@@ -5,9 +5,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using StackExchange.Profiling;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#if DEBUG
+builder.Services
+    .AddMiniProfiler()
+    .AddEntityFramework();
+#endif
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -99,6 +106,10 @@ app.UseRouting();
 app.UseOutputCache();
 app.UseAuthentication();
 app.UseAuthorization();
+
+#if DEBUG
+app.UseMiniProfiler();
+#endif
 
 app.MapRazorPages();
 app.MapAdminServiceEndpoints();

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Pages.Posts;
 
-[OutputCache(PolicyName = "default")]
+//[OutputCache(PolicyName = "default")]
 public class IndexModel(BlogContext blogContext) 
     : PageModel
 {
