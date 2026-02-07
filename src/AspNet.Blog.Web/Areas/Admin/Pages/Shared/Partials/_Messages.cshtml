@@ -1,4 +1,6 @@
-﻿@if (ViewData["MSG_SUCCESS"] != null)
+﻿@model AspNet.Blog.Web.Common.BaseModel
+
+@if (Model.SuccessMessage != null)
 {
     <div class="alert alert-success alert-solid alert-icon" role="alert">
         <div class="alert-icon-aside">
@@ -6,12 +8,12 @@
         </div>
         <div class="alert-icon-content">
             <h3 class="alert-heading">Yes!</h3>
-            @ViewData["MSG_SUCCESS"]
+            @Model.SuccessMessage
             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
 }
-@if (ViewData["MSG_ERROR"] != null)
+@if (Model.ErrorMessage != null)
 {
     <div class="alert alert-red alert-solid alert-icon" role="alert">
         <div class="alert-icon-aside">
@@ -19,7 +21,7 @@
         </div>
         <div class="alert-icon-content">
             <h3 class="alert-heading">Ouch!</h3>
-            @ViewData["MSG_ERROR"]
+            @Model.ErrorMessage
             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>

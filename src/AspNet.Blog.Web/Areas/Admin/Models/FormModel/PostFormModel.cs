@@ -25,5 +25,6 @@ public record PostFormModel
     [StringLength(int.MaxValue)]
     public string Content { get; set; }
 
-    public string Tags { get; set; }
+    [StringLength(150)]
+    public string? Tags { get; set; }
 }
