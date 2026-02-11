@@ -2,6 +2,7 @@
 using AspNet.Blog.Web.Infrastructure.Data;
 using AspNet.Blog.Web.Infrastructure.Storage;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Blog.Web.Areas.Admin.Services;
 
@@ -10,6 +11,7 @@ public static class ServicesEndpoints
     public static void MapAdminServiceEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet("/admin/svc/categories/autocomplete", GetCategoriesAutocomplete);
+        
         app.MapPost("/admin/svc/upload", Upload)
             .DisableAntiforgery();
     }
@@ -20,12 +22,12 @@ public static class ServicesEndpoints
     {
         string slug = term.ToSlug();
 
-        var model = blogContext.Categories
+        var model = await blogContext.Categories
             .Where(x => x.Permalink.StartsWith(slug))
             .Select(x => x.Name)
-            .ToList();
+            .ToListAsync();
 
-        return Results.Ok(model);
+        return Results.Json(model);
     }
 
     private static async Task<IResult> Upload(IFormFile file,
