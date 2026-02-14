@@ -54,7 +54,8 @@
                         Content
                     </div>
                     <div class="card-body">
-                        <textarea id="post-body" asp-for="PostForm!.Content" class="form-control input-block-level" rows="15" data-upload="/admin/svc/upload"></textarea>
+                        <div id="quill-editor" data-upload="/admin/svc/upload" style="min-height: 300px;"></div>
+                        <input type="hidden" id="post-body" asp-for="PostForm!.Content" />
                         <span asp-validation-for="PostForm!.Content" class="text-danger"></span>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                     <div class="card-header">
                         Category
                     </div>
-                    <div class="card-body">
+                    <div class="card-body ui-widget">
                         <input type="text" id="inputCategory" asp-for="PostForm!.Category" class="form-control input-block-level" maxlength="70" data-source="/admin/svc/categories/autocomplete">
                         <span asp-validation-for="PostForm!.Category" class="text-danger"></span>
                     </div>
@@ -95,16 +96,16 @@
 </div>
 
 @section Css {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tarekraafat-autocomplete.js/10.2.9/css/autoComplete.min.css">
+    <link href="~/admin/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/admin/vendor/tagsinput/jquery.tagsinput.css" rel="stylesheet" />
-    <link href="~/admin/vendor/redactor/redactor.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
 }
 
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tarekraafat-autocomplete.js/10.2.9/autoComplete.min.js"></script>
+    <script src="~/admin/vendor/jquery-ui/jquery-ui.min.js"></script>    
     <script src="~/admin/vendor/tagsinput/jquery.tagsinput.min.js"></script>
-    <script src="~/admin/vendor/redactor/redactor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <script src="~/admin/js/pages/admin.posts.add.js"></script>
 }

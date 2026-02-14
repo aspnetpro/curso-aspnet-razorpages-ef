@@ -3,6 +3,9 @@ using Microsoft.Extensions.Options;
 
 namespace AspNet.Blog.Web.Infrastructure.Storage;
 
+// npm install -g azurite
+// run: azurite
+
 public class AzureBlobStorageImpl : IStorage
 {
     private readonly BlobContainerClient blobContainerClient;

@@ -44,11 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\admin\js\libs\jquery-ui-1.13.2\external\jquery\" />
-    <Folder Include="wwwroot\admin\js\libs\jquery-ui-1.13.2\images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Emails\Templates.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
