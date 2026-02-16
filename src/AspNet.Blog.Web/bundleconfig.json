@@ -1,0 +1,112 @@
+[
+  {
+    "outputFileName": "wwwroot/css/styles.min.css",
+    "inputFiles": [
+      "wwwroot/css/styles.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "None"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/scripts.min.js",
+    "inputFiles": [
+      "wwwroot/js/scripts.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/blog.post.min.js",
+    "inputFiles": [
+      "wwwroot/js/blog.post.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/css/styles.min.css",
+    "inputFiles": [
+      "wwwroot/admin/css/styles.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "None"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/scripts.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/scripts.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/litepicker.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/litepicker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/markdown.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/markdown.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/toasts.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/toasts.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/pages/admin.posts.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/pages/admin.posts.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/pages/admin.posts.add.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/pages/admin.posts.add.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/admin/js/pages/admin.posts.index.min.js",
+    "inputFiles": [
+      "wwwroot/admin/js/pages/admin.posts.index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  }
+]

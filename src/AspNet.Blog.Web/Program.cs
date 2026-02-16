@@ -92,6 +92,7 @@ if (app.Environment.IsDevelopment())
 //app.UseResponseCaching();
 app.UseHttpsRedirection();
 
+//app.UseStaticFiles();
 var cacheMaxAgeOneWeek = (60 * 60 * 24 * 7).ToString();
 app.UseStaticFiles(new StaticFileOptions
 {
